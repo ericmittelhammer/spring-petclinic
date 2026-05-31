@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_ericmittelhammer_spring_petclinic_1780226367800-push-trigger-input-set
+  identifier: Build_ericmittelhammer_spring_petclinic_1780226367800pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_ericmittelhammer_spring_petclinic_1780226367800
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
