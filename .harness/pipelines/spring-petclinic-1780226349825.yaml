@@ -32,9 +32,9 @@ pipeline:
                   identifier: Check_Dependencies
                   spec:
                     connectorRef: account.docker_hardened
-                    image: maven:3-jdk25-alpine3.23-dev
+                    image: gradle:9-jdk25-alpine3.23-dev
                     shell: Sh
-                    command: mvn clean package dependency:copy-dependencies
+                    command: gradle test --no-daemon
   properties:
     ci:
       codebase:
