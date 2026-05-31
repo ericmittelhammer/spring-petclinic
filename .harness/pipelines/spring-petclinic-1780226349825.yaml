@@ -21,7 +21,9 @@ pipeline:
             arch: Amd64
           runtime:
             type: Cloud
-            spec: {}
+            spec:
+              imageSpec:
+                imageName: ubuntu-24
           execution:
             steps:
               - step:
