@@ -28,7 +28,7 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Check Dependencies
+                  name: Build and Test
                   identifier: Check_Dependencies
                   spec:
                     connectorRef: account.docker_hardened
