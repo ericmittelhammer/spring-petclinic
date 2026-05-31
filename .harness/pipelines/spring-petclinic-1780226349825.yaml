@@ -3,52 +3,37 @@ pipeline:
   name: Build spring-petclinic
   orgIdentifier: default
   projectIdentifier: default_project
-  properties:
-    ci:
-      codebase:
-        build: <+input>
-        connectorRef: account.Github_OAuth_1780225992389
-        repoName: ericmittelhammer/spring-petclinic
   stages:
     - stage:
-        identifier: build
         name: build
+        identifier: build
+        description: ""
+        type: CI
         spec:
+          cloneCodebase: true
           caching:
             enabled: true
-          cloneCodebase: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
           execution:
             steps:
               - step:
-                  identifier: echo
-                  name: echo
-                  spec:
-                    command: echo hello world
-                  timeout: ""
                   type: Run
-              - step:
-                  identifier: scalabuild
-                  name: scala_build
+                  name: buildImage
+                  identifier: buildImage
                   spec:
-                    command: "gradle build "
-                  timeout: ""
-                  type: Run
-              - step:
-                  identifier: scalatest
-                  name: scala_test
-                  spec:
-                    command: "./gradlew test\n\t\txml_file=$(find /harness/build/test-results/test -type f -name \"*.xml\" | head -n 1)\n\n\t\tif [ -n \"$xml_file\" ]; then\n\t\t\tcp \"$xml_file\" /harness/reports.xml\n\t\t\techo \"XML file copied to /harness/reports.xml\"\n\t\telse\n\t\t\techo \"No XML file found in /path\"\n\t\tfi"
-                    reports:
-                      spec:
-                        paths:
-                          - /harness/reports.xml
-                      type: JUnit
-                  timeout: ""
-                  type: Run
-          platform:
-            arch: Amd64
-            os: Linux
-          runtime:
-            spec: {}
-            type: Cloud
-        type: CI
+                    shell: Sh
+                    command: ./gradlew bootBuildImage
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1780225992389
+        repoName: ericmittelhammer/spring-petclinic
+        build: <+input>
