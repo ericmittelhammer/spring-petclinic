@@ -27,12 +27,17 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
+                  type: Plugin
                   name: copyDependencies
-                  identifier: buildImage
+                  identifier: copyDependencies
                   spec:
-                    shell: Sh
-                    command: mvn clean package dependency:copy-dependencies
+                    connectorRef: account.harnessImage
+                    image: kameshsampath/drone-java-maven-plugin
+                    settings:
+                      goals:
+                        - clean
+                        - package
+                        - dependency:copy-dependencies
   properties:
     ci:
       codebase:
