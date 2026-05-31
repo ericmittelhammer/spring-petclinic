@@ -29,12 +29,15 @@ pipeline:
               - step:
                   type: Run
                   name: Build and Test
-                  identifier: Check_Dependencies
+                  identifier: build_and_test
                   spec:
-                    connectorRef: account.docker_hardened
-                    image: gradle:9-jdk17-alpine3.23-dev
                     shell: Sh
-                    command: gradle test --no-daemon
+                    command: ./gradlew test --no-daemon
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "**/build/test-results/test/*.xml"
   properties:
     ci:
       codebase:
