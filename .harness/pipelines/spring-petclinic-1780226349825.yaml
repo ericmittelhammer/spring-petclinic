@@ -23,8 +23,7 @@ pipeline:
             type: Cloud
             spec:
               imageSpec:
-                imageName: maven:3-jdk25-alpine3.23-dev
-                connectorRef: account.docker_hardened
+                imageName: ubuntu-24
           execution:
             steps:
               - step:
@@ -32,6 +31,8 @@ pipeline:
                   name: Check Dependencies
                   identifier: Check_Dependencies
                   spec:
+                    connectorRef: account.docker_hardened
+                    image: maven:3-jdk25-alpine3.23-dev
                     shell: Sh
                     command: mvn clean package dependency:copy-dependencies
   properties:
