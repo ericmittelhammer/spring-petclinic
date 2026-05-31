@@ -28,8 +28,16 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Build and Test
-                  identifier: build_and_test
+                  name: Compile
+                  identifier: Compile
+                  spec:
+                    shell: Sh
+                    command: ./gradlew compile --no-daemon
+                contextType: Pipeline
+              - step:
+                  type: Run
+                  name: Test
+                  identifier: Test
                   spec:
                     shell: Sh
                     command: ./gradlew test --no-daemon
