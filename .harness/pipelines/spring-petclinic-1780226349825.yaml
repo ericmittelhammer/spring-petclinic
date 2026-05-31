@@ -32,7 +32,7 @@ pipeline:
                   identifier: Check_Dependencies
                   spec:
                     connectorRef: account.docker_hardened
-                    image: gradle:9-jdk25-alpine3.23-dev
+                    image: gradle:9-jdk17-alpine3.23-dev
                     shell: Sh
                     command: gradle test --no-daemon
   properties:
