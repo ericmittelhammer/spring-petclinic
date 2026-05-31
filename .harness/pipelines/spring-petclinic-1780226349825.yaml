@@ -32,7 +32,7 @@ pipeline:
                   identifier: Compile
                   spec:
                     shell: Sh
-                    command: ./gradlew compile --no-daemon
+                    command: ./gradlew compileJava --no-daemon
                 contextType: Pipeline
               - step:
                   type: Run
