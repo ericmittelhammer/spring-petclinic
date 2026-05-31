@@ -24,7 +24,7 @@ pipeline:
             spec:
               imageSpec:
                 imageName: maven:3.8-jdk-11
-                connectorRef: account.Docker_Hub
+                connectorRef: account.docker_hardened
           execution:
             steps:
               - step:
