@@ -23,7 +23,7 @@ pipeline:
             type: Cloud
             spec:
               imageSpec:
-                imageName: maven:3.8-jdk-11
+                imageName: maven:3-jdk25-alpine3.23-dev
                 connectorRef: account.docker_hardened
           execution:
             steps:
