@@ -23,21 +23,17 @@ pipeline:
             type: Cloud
             spec:
               imageSpec:
-                imageName: ubuntu-24
+                imageName: maven:3.8-jdk-11
+                connectorRef: account.Docker_Hub
           execution:
             steps:
               - step:
-                  type: Plugin
-                  name: copyDependencies
-                  identifier: copyDependencies
+                  type: Run
+                  name: Check Dependencies
+                  identifier: Check_Dependencies
                   spec:
-                    connectorRef: account.harnessImage
-                    image: kameshsampath/drone-java-maven-plugin
-                    settings:
-                      goals:
-                        - clean
-                        - package
-                        - dependency:copy-dependencies
+                    shell: Sh
+                    command: mvn clean package dependency:copy-dependencies
   properties:
     ci:
       codebase:
