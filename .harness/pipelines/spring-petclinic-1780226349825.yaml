@@ -36,17 +36,11 @@ pipeline:
                 contextType: Pipeline
               - parallel:
                   - step:
-                      type: Run
                       name: Test
                       identifier: Test
-                      spec:
-                        shell: Sh
-                        command: ./gradlew test --no-daemon
-                        reports:
-                          type: JUnit
-                          spec:
-                            paths:
-                              - "**/build/test-results/test/*.xml"
+                      template:
+                        templateRef: JUnit_Test_Runner
+                        versionLabel: v1
                   - step:
                       type: Run
                       name: Checkstyle
@@ -86,8 +80,7 @@ pipeline:
                 spec:
                   artifacts:
                     primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
+                      primaryArtifactRef: <+pipeline.stages.build.spec.execution.steps.Build_and_Push.output.artifact>
           environment:
             environmentRef: Harness_Lab_Cluster_EKS
             deployToAll: false
