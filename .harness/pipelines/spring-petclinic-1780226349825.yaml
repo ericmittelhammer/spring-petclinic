@@ -66,9 +66,10 @@ pipeline:
                   identifier: Build_and_Push_Image
                   spec:
                     connectorRef: account.Docker_Hub
-                    repo: springboot-petclinic
+                    repo: ericmittelhammer/petclinic
                     tags:
                       - latest
+                      - <+pipeline.sequenceId>
                     caching: true
   properties:
     ci:
