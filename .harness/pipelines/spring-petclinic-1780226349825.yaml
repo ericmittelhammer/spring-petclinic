@@ -86,13 +86,12 @@ pipeline:
                 spec:
                   artifacts:
                     primary:
-                      primaryArtifactRef: petclinic
                       sources:
-                        - identifier: petclinic
+                        - identifier: PetclinicImage
                           type: DockerRegistry
                           spec:
-                            imagePath: <+input>
-                            tag: <+artifacts.primary.tag>
+                            tag: <+input>
+                      primaryArtifactRef: petclinic
           environment:
             environmentRef: Harness_Lab_Cluster_EKS
             deployToAll: false
