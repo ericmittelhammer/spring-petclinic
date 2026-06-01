@@ -2,7 +2,7 @@
 apiVersion: v1  
 kind: Secret  
 metadata:  
-  name: {{.Values.name}}-dockercfg
+  name: petclinic-dockercfg
   annotations:  
     harness.io/skip-versioning: true  
 data:  
@@ -42,7 +42,7 @@ spec:
     spec:
       {{- if .Values.dockercfg}}  
       imagePullSecrets:  
-      - name: {{.Values.name}}-dockercfg  
+      - name: petclinic-dockercfg  
       {{- end}} 
       containers:
         - name: workload
