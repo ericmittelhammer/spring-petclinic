@@ -80,18 +80,6 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: Petclinic
-            serviceInputs:
-              serviceDefinition:
-                type: Kubernetes
-                spec:
-                  artifacts:
-                    primary:
-                      sources:
-                        - identifier: PetclinicImage
-                          type: DockerRegistry
-                          spec:
-                            tag: <+input>
-                      primaryArtifactRef: petclinic
           environment:
             environmentRef: Harness_Lab_Cluster_EKS
             deployToAll: false
