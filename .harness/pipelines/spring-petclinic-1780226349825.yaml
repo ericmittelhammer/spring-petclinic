@@ -34,18 +34,42 @@ pipeline:
                     shell: Sh
                     command: ./gradlew compileJava --no-daemon
                 contextType: Pipeline
-              - step:
-                  type: Run
-                  name: Test
-                  identifier: Test
-                  spec:
-                    shell: Sh
-                    command: ./gradlew test --no-daemon
-                    reports:
-                      type: JUnit
+              - parallel:
+                  - step:
+                      type: Run
+                      name: Test
+                      identifier: Test
                       spec:
-                        paths:
-                          - "**/build/test-results/test/*.xml"
+                        shell: Sh
+                        command: ./gradlew test --no-daemon
+                        reports:
+                          type: JUnit
+                          spec:
+                            paths:
+                              - "**/build/test-results/test/*.xml"
+                  - step:
+                      type: Run
+                      name: Checkstyle
+                      identifier: Checkstyle
+                      spec:
+                        shell: Sh
+                        command: ./gradlew checkstyleMain --no-daemon
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: Ignore
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build and Push Image
+                  identifier: Build_and_Push_Image
+                  spec:
+                    connectorRef: account.Docker_Hub
+                    repo: springboot-petclinic
+                    tags:
+                      - latest
+                    caching: true
   properties:
     ci:
       codebase:
