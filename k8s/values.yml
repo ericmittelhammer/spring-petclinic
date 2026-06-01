@@ -1,0 +1,4 @@
+name: <+stage.variables.name>
+
+image: <+artifacts.primary.image>  
+dockercfg: <+artifacts.primary.imagePullSecret> 

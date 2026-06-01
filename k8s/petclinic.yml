@@ -1,3 +1,15 @@
+{{- if .Values.dockercfg}}  
+apiVersion: v1  
+kind: Secret  
+metadata:  
+  name: {{.Values.name}}-dockercfg
+  annotations:  
+    harness.io/skip-versioning: true  
+data:  
+  .dockercfg: {{.Values.dockercfg}}  
+type: kubernetes.io/dockercfg  
+{{- end}}  
+
 ---
 apiVersion: v1
 kind: Service
@@ -28,9 +40,13 @@ spec:
       labels:
         app: petclinic
     spec:
+      {{- if .Values.dockercfg}}  
+      imagePullSecrets:  
+      - name: {{.Values.name}}-dockercfg  
+      {{- end}} 
       containers:
         - name: workload
-          image: <+artifacts.primary.image>
+          image: {{ .Values.image }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: postgres
