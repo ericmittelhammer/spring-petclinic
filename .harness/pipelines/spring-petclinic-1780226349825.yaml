@@ -86,8 +86,7 @@ pipeline:
                 spec:
                   artifacts:
                     primary:
-                      primaryArtifactRef: <+input>
-                      sources: <+input>
+                      primaryArtifactRef: <+pipeline.stages.build.spec.execution.steps.Build_and_Push.output.artifact.stepArtifacts.publishedImageArtifacts[1]>
           environment:
             environmentRef: Harness_Lab_Cluster_EKS
             deployToAll: false
