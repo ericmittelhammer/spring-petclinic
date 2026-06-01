@@ -69,6 +69,7 @@ pipeline:
                     repo: ericmittelhammer/petclinic
                     tags:
                       - latest
+                      - <+pipeline.sequenceId>
                     caching: true
   properties:
     ci:
