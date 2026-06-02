@@ -1,0 +1,14 @@
+inputSet:
+  name: main_branc_input
+  identifier: main_branc_input
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_ericmittelhammer_spring_petclinic_1780226367800
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: main
